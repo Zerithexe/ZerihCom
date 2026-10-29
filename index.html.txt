@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZerithCom - Ana Sayfa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f1923; color: #ece8e1; }
+        .valorant-btn { background-color: #ff4655; transition: all 0.2s ease; }
+        .valorant-btn:hover { background-color: #e03e4d; transform: translateY(-2px); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-6">
+
+    <!-- Üst Menü -->
+    <header class="max-w-6xl w-full mx-auto flex justify-between items-center pb-6 border-b border-gray-800">
+        <h1 class="text-4xl font-bold tracking-wider text-[#ff4655]" style="font-family: 'Teko', sans-serif;">ZERITHCOM</h1>
+        <div class="flex gap-3 text-sm">
+            <a href="kocluk.html" class="text-gray-300 hover:text-[#ff4655] px-3 py-1.5 bg-[#1f2833] rounded">Koçluk</a>
+            <a href="takim-bul.html" class="text-gray-300 hover:text-[#ff4655] px-3 py-1.5 bg-[#1f2833] rounded">Duo / LFT</a>
+            <a href="eglence.html" class="text-gray-300 hover:text-[#ff4655] px-3 py-1.5 bg-[#1f2833] rounded">Quiz & Sohbet</a>
+            <a href="aim-programi.html" class="text-gray-300 hover:text-[#ff4655] px-3 py-1.5 bg-[#1f2833] rounded">AI Aim</a>
+            <a href="espor.html" class="text-gray-300 hover:text-[#ff4655] px-3 py-1.5 bg-[#1f2833] rounded">Espor</a>
+        </div>
+    </header>
+
+    <!-- Ana Karşılama Alanı -->
+    <main class="max-w-4xl mx-auto text-center space-y-6 py-12">
+        <h2 class="text-6xl font-bold text-white tracking-wider" style="font-family: 'Teko', sans-serif;">VALORANT TÜRKİYE TOPLULUK MERKEZİ</h2>
+        <p class="text-gray-400 max-w-xl mx-auto text-sm">
+            Koçluk al, kendine en uygun duo veya takımı bul, yapay zeka ile aim rutini oluştur, günlük quizlerle puanları topla ve espor transferlerini ilk sen öğren!
+        </p>
+
+        <div class="flex justify-center gap-4 pt-4">
+            <a href="takim-bul.html" class="valorant-btn text-white font-bold px-8 py-3.5 rounded-lg shadow-lg">
+                Hemen Duo / Takım Bul 🚀
+            </a>
+            <a href="kocluk.html" class="bg-[#1f2833] hover:bg-gray-800 border border-gray-700 text-white font-bold px-8 py-3.5 rounded-lg">
+                Koçluk İncele 👑
+            </a>
+        </div>
+    </main>
+
+    <!-- Alt Bilgi -->
+    <footer class="max-w-6xl w-full mx-auto text-center pt-6 border-t border-gray-800 text-xs text-gray-500">
+        © 2026 ZerithCom. Tüm hakları saklıdır. Tamamen ücretsiz topluluk platformu.
+    </footer>
+
+</body>
+</html>

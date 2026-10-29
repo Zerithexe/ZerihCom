@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZerithCom - AI Aim Programı Oluşturucu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f1923; color: #ece8e1; }
+        .valorant-btn { background-color: #ff4655; transition: all 0.2s ease; }
+        .valorant-btn:hover { background-color: #e03e4d; }
+    </style>
+</head>
+<body class="p-6">
+
+    <!-- Üst Menü -->
+    <header class="max-w-6xl mx-auto flex justify-between items-center pb-6 border-b border-gray-800 mb-8">
+        <h1 class="text-4xl font-bold tracking-wider text-[#ff4655]" style="font-family: 'Teko', sans-serif;">ZERITHCOM // AI AIM KOÇU</h1>
+        <div class="flex gap-4">
+            <a href="eglence.html" class="text-gray-400 hover:text-white pt-1 text-sm">← Sosyal & Quiz</a>
+            <a href="index.html" class="text-gray-400 hover:text-white pt-1 text-sm">Ana Sayfa</a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- SOL: Yapay Zeka Soru Paneli -->
+        <section class="bg-[#1f2833] p-6 rounded-xl border border-gray-800 h-fit">
+            <h2 class="text-2xl font-bold text-white mb-2 text-[#ff4655]">🤖 AI Aim Analizi</h2>
+            <p class="text-xs text-gray-400 mb-4">Soruları yanıtla, yapay zeka sana özel antrenman rutini çıkarsın.</p>
+            
+            <form id="aiForm" onsubmit="generateAimProgram(event)" class="space-y-4 text-sm">
+                <div>
+                    <label class="block text-gray-400 mb-1">Mevcut Valorant Rankın</label>
+                    <select id="aiRank" class="w-full bg-[#0f1923] border border-gray-700 rounded p-2 text-white">
+                        <option>Demir / Bronz / Gümüş</option>
+                        <option>Altın / Platin</option>
+                        <option>Elmas / Yücelik (Ascendant)</option>
+                        <option>İmmortal / Radiant</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-1">Günde Kaç Saat Ayırabilirsin?</label>
+                    <select id="aiTime" class="w-full bg-[#0f1923] border border-gray-700 rounded p-2 text-white">
+                        <option>30 Dakika (Hızlı Rutin)</option>
+                        <option>1 Saat (Standart Gelişim)</option>
+                        <option>2+ Saat (Hardcore Antrenman)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-1">En Çok Zorlandığın Konu Nedir?</label>
+                    <select id="aiWeakness" class="w-full bg-[#0f1923] border border-gray-700 rounded p-2 text-white">
+                        <option>Crosshair Placement (Nişangah Yerleşimi)</option>
+                        <option>Flick Atma & Refleks</option>
+                        <option>Spray Kontrolü (Vandal / Phantom)</option>
+                        <option>Counter-Strafing (Durarak Ateş Etme)</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full valorant-btn text-white font-bold py-3 rounded">
+                    Özel Programımı Oluştur 🚀
+                </button>
+            </form>
+        </section>
+
+        <!-- SAĞ: Çıkan Program ve PDF İndirme -->
+        <section class="bg-[#1f2833] p-6

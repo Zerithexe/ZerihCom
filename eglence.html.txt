@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZerithCom - Eğlence, Quiz & Sohbet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f1923; color: #ece8e1; }
+        .valorant-btn { background-color: #ff4655; transition: all 0.2s ease; }
+        .valorant-btn:hover { background-color: #e03e4d; }
+    </style>
+</head>
+<body class="p-6">
+
+    <!-- Üst Menü -->
+    <header class="max-w-6xl mx-auto flex justify-between items-center pb-6 border-b border-gray-800 mb-8">
+        <h1 class="text-4xl font-bold tracking-wider text-[#ff4655]" style="font-family: 'Teko', sans-serif;">ZERITHCOM // SOSYAL & QUIZ</h1>
+        <div class="flex gap-4">
+            <a href="takim-bul.html" class="text-gray-400 hover:text-white pt-1 text-sm">← Takım Bul</a>
+            <a href="index.html" class="text-gray-400 hover:text-white pt-1 text-sm">Ana Sayfa</a>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- SOL: Günlük Valorant Quizi -->
+        <section class="bg-[#1f2833] p-6 rounded-xl border border-gray-800 h-fit">
+            <h2 class="text-2xl font-bold text-white mb-2 text-[#ff4655]">🎯 Günlük Valorant Quizi</h2>
+            <p class="text-xs text-gray-400 mb-4">Günde 1 kez katıl, doğru bil puanı kap!</p>
+            
+            <div id="quizContainer">
+                <div id="questionBox">
+                    <p id="quizQuestion" class="font-semibold text-white mb-4 text-sm">Soru yükleniyor...</p>
+                    <div id="optionsBox" class="space-y-2">
+                        <!-- Şıklar buraya gelecek -->
+                    </div>
+                </div>
+                <div id="quizResult" class="hidden text-center py-4">
+                    <p id="resultText" class="font-bold text-lg mb-2"></p>
+                    <p class="text-xs text-gray-400">Yarın tekrar yeni bir quiz için gelebilirsin!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ORTA: Genel Sohbet Odası -->
+        <section class="bg-[#1f2833] p-6 rounded-xl border border-gray-800 flex flex-col h-[500px]">
+            <h2 class="text-xl font-bold text-white mb-3 border-b border-gray-700 pb-2">💬 Genel Sohbet</h2>
+            
+            <!-- Mesajların Akacağı Alan -->
+            <div id="chatMessages" class="flex-1 overflow-y-auto space-y-3 pr-2 mb-4 text-sm">
+                <!-- Mesajlar buraya yüklenecek -->
+            </div>
+
+            <!-- Mesaj Gönderme Formu -->
+            <form onsubmit="sendChatMessage(event)" class="flex gap-2">
+                <input type="text" id="chatInput" required placeholder="Sohbete bir şeyler yaz..." class="flex-1 bg-[#0f1923] border border-gray-700 rounded p-2.5 text-white text-sm focus:outline-none focus:border-[#ff4655]">
+                <button type="submit" class="valorant-btn text-white px-4 rounded font-bold text-sm">Gönder</button>
+            </form>
+        </section>
+
+        <!-- SAĞ: Liderlik Sıralaması (Leaderboard) -->
+        <section class="bg-[#1f2833] p-6 rounded-xl border border-gray-800 h-fit">
+            <h2 class="text-2xl font-bold text-white mb-4 text-[#ff4655]">🏆 En İyi Puanlar</h2>
+            <div id="leaderboardList" class="space-y-3 text-sm">
+                <!-- Sıralama buraya gelecek -->
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Günün Örnek Quizi
+        const currentQuiz = {
+            id: 1,
+            question: "Hangi ajanın yeteneği duvarın arkasından düşmanların yerini gösteren bir ok atar?",
+            options: ["Jett", "Sova", "Cypher", "Fade"],
+            answer: "Sova"
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            checkQuizStatus();
+            loadChat();
+            loadLeaderboard();
+        });
+
+        function checkQuizStatus() {
+            const lastQuizDate = localStorage.getItem('zerithLastQuizDate');
+            const today = new Date().toDateString();
+
+            if(lastQuizDate === today) {
+                document.getElementById('questionBox').classList.add('hidden');
+                const resDiv = document.getElementById('quizResult');
+                resDiv.classList.remove('hidden');
+                document.getElementById('resultText').innerText = "Bugünkü quiz hakkını zaten kullandın! Yarın tekrar bekleriz.";
+            } else {
+                renderQuiz();
+            }
+        }
+
+        function renderQuiz() {
+            document.getElementById('quizQuestion').innerText = currentQuiz.question;
+            const optBox = document.getElementById('optionsBox');
+            optBox.innerHTML = '';
+
+            currentQuiz.options.forEach(opt => {
+                optBox.innerHTML += `
+                    <button onclick="answerQuiz('${opt}')" class="w-full text-left bg-[#0f1923] hover:bg-gray-800 border border-gray-700 p-2.5 rounded text-white text-sm transition">
+                        ${opt}
+                    </button>
+                `;
+            });
+        }
+
+        function answerQuiz(selected) {
+            const today = new Date().toDateString();
+            localStorage.setItem('zerithLastQuizDate', today);
+
+            let message = "";
+            let pointsEarned = 0;
+
+            if(selected === currentQuiz.answer) {
+                message = "Tebrikler, doğru cevap! (+100 Puan)";
+                pointsEarned = 100;
+            } else {
+                message = "Yanlış cevap! Doğru cevap: " + currentQuiz.answer;
+                pointsEarned = 0;
+            }
+
+            // Puanı liderliğe ekle (Örnek Oyuncu)
+            let leaderboard = JSON.parse(localStorage.getItem('zerithLeaderboard') || '[]');
+            leaderboard.push({ name: "Sen (Oyuncu)", points: pointsEarned });
+            localStorage.setItem('zerithLeaderboard', JSON.stringify(leaderboard));
+
+            document.getElementById('questionBox').classList.add('hidden');
+            const resDiv = document.getElementById('quizResult');
+            resDiv.classList.remove('hidden');
+            document.getElementById('resultText').innerText = message;
+            loadLeaderboard();
+        }
+
+        function loadLeaderboard() {
+            const leaderboard = JSON.parse(localStorage.getItem('zerithLeaderboard') || '[{"name": "Zerith#KRYPT", "points": 850}, {"name": "ViperMain", "points": 620}, {"name": "JettGo", "points": 400}]');
+            
+            // Puanlarına göre büyükten küçüğe sırala
+            leaderboard.sort((a, b) => b.points - a.points);
+
+            const list = document.getElementById('leaderboardList');
+            list.innerHTML = '';
+
+            leaderboard.slice(0, 5).forEach((user, index) => {
+                let badgeColor = index === 0 ? "text-yellow-400" : index === 1 ? "text-gray-300" : index === 2 ? "
